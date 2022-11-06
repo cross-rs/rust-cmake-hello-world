@@ -2,6 +2,8 @@
 
 > Minimal example of using CMake from Rust
 
+This tests compiler feature detection, as well as more complicated examples with thread support when the `re2` feature is enabled.
+
 ## License
 
 Licensed under either of

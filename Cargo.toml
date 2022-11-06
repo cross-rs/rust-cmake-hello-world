@@ -5,4 +5,9 @@ edition = "2021"
 build = "src/build.rs"
 
 [build-dependencies]
+cc = "1.0.73"
 cmake = "0.1"
+
+[features]
+std = []
+re2 = ["std"]
