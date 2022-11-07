@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.4)
 project(sum)
 
-add_library(sum sum.c)
+add_library(sum sum.cc)
 target_include_directories(sum PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 install(TARGETS sum DESTINATION lib)
 
