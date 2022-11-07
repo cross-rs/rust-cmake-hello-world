@@ -28,7 +28,16 @@ fn build_re2() {
         }
         let dst = config.build();
 
-        cc::Build::new()
+        let mut build = cc::Build::new();
+
+        // msvc doesn't support C++11, only C++14 and higher, but
+        // older targets like CentOS have only partial C++11 support.
+        match abi.as_deref() {
+            Ok("msvc") => build.flag("-std=c++14"),
+            _ => build.flag("-std=c++11"),
+        };
+
+        build
             .cpp(true)
             .file("match.cc")
             .include(dst.join("include"))
