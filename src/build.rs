@@ -1,4 +1,5 @@
 use cmake;
+use std::env;
 
 fn main() {
     println!("cargo:rerun-if-changed=src/build.rs");
@@ -15,7 +16,17 @@ fn build_sum() {
 
 fn build_re2() {
     if cfg!(feature = "re2") {
-        let dst = cmake::build("re2");
+        let mut config = cmake::Config::new("re2");
+        let abi = env::var("CARGO_CFG_TARGET_ENV");
+        if env::var("CARGO_CFG_WINDOWS").is_ok() && matches!(abi.as_deref(), Ok("gnu")) {
+            // rust needs windows 7+, and re2 needs windows vista+
+            config
+                .cflag("-DWINVER=0x0601")
+                .cflag("-D_WIN32_WINNT=0x0601")
+                .cxxflag("-DWINVER=0x0601")
+                .cxxflag("-D_WIN32_WINNT=0x0601");
+        }
+        let dst = config.build();
 
         cc::Build::new()
             .cpp(true)
