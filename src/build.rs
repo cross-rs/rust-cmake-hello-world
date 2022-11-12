@@ -5,6 +5,7 @@ fn main() {
     println!("cargo:rerun-if-changed=src/build.rs");
 
     build_sum();
+    build_tryrun();
     build_re2();
 }
 
@@ -12,6 +13,12 @@ fn build_sum() {
     let dst = cmake::build("libsum");
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
     println!("cargo:rustc-link-lib=static=sum");
+}
+
+fn build_tryrun() {
+    if cfg!(feature = "tryrun") {
+        let _ = cmake::build("tryrun");
+    }
 }
 
 fn build_re2() {

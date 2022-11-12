@@ -11,3 +11,4 @@ cmake = "0.1"
 [features]
 std = []
 re2 = ["std"]
+tryrun = ["std"]
