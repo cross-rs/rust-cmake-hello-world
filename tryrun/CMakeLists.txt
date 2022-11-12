@@ -5,7 +5,7 @@ try_run(
     run_result
     compile_result
     "${CMAKE_CURRENT_BINARY_DIR}"
-    "${CMAKE_CURRENT_SOURCE_DIR}/hello.cc"
+    "${CMAKE_CURRENT_SOURCE_DIR}/hello.c"
     RUN_OUTPUT_VARIABLE run_output
 )
 
